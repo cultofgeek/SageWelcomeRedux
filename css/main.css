@@ -104,7 +104,9 @@ header.top_bar{
 .top_bar .icon_bar.open:first-child{
 	position: absolute;
 	top: 32px;
-	left: 23px;		
+	left: 23px;	
+	-webkit-transform: rotate(45deg);
+	-webkit-transform-origin: 50%, 50%;
 	transform: rotate(45deg);
 	transform-origin: 50%, 50%;
 }
@@ -117,6 +119,8 @@ header.top_bar{
 	position: absolute;
 	top: 32px;
 	left: 23px;		
+	-webkit-transform: rotate(-45deg);
+	-webkit-transform-origin: 50%, 50%;	
 	transform: rotate(-45deg);
 	transform-origin: 50%, 50%;
 }
@@ -527,6 +531,10 @@ footer p{
 	}
 	ul.social_media li h3{
 		display: none;
+	}
+
+	.wrap{
+		left: -87%;
 	}
 }
 

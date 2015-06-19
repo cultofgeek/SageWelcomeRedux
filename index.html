@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>SAGE: Welcome Page</title>		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/reset.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Teko:300,400' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
@@ -59,7 +60,7 @@
 
 				<div id="wrap" class="wrap">
 					<div class="mockup">
-						<img class="mockup__img" src="img/mockup4.jpg" />
+						<img class="mockup__img" src="img/mockup4.jpg" id="ralph"/>
 						<div class="mobile">
 							<ul id="slideshow-1" class="slideshow">
 								<li class="slideshow__item"><img src="img/small/1.png"/></li>
@@ -152,11 +153,57 @@
 							}, 2000 );
 				}
 
-				function scaleMockup() {
-					var wrapWidth = wrap.offsetWidth,
-						val = wrapWidth / mockupWidth;
+				//return true if the image that is given is taller than it is wide; otherwise, return false, if it is either equal in dimensions or it is landscape
+				function isPortrait( $image ){
+				    console.log("isPortrait called");
+					  var width = $image.width();
+					  var height = $image.height();
+				  	  var ratio = width/height;
+					  var result;
+					
+					  	if (ratio >= 1){
+							result = false;
+						}
+				  		else{
+							result = true;
+						}
+									  	
+					return result;
+				}
 
-					mockup.style.transform = 'scale3d(' + val + ', ' + val + ', 1)';
+
+				function scaleMockup(){
+					
+					console.log("scaleMockup called");
+					
+					var scaleFactor;
+					var $image = $("#ralph");
+					var imgWidth = $image.width();
+					var imgHeight = $image.height();
+					var winWidth = $(window).width();
+					var winHeight = $(window).height();
+
+					var winRatio = winWidth/winHeight;
+					
+				    var image	= document.getElementById( 'ralph' );
+						
+					if (!isPortrait($image)){
+						scaleFactor = winWidth/imgWidth;
+					}
+					else{
+						scaleFactor = winHeight/imgHeight;
+					}
+					
+					var goalWidth = scaleFactor*imgWidth;
+					var goalHeight = scaleFactor*imgHeight;
+
+					if (goalHeight < winHeight){
+						scaleFactor = winHeight/imgHeight;
+					}
+
+					//$image.css({"width": goalWidth+"px", "height": goalHeight+"px"});
+					mockup.style.transform = 'scale3d(' + scaleFactor + ', ' + scaleFactor + ', 1)';
+					
 				}				
 
 				function resizeHandler() {
